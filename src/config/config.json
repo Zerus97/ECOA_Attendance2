@@ -1,0 +1,15 @@
+{
+  "default": {
+
+  },
+  "development": {
+    "DB_USER": "postgres",
+    "DB_PASS": "123456789",
+    "DB_NAME": "ECOA_Attendance",
+    "DB_HOST": "127.0.0.1",
+    "DB_PORT": 5432
+  },
+  "production": {
+
+  }
+}

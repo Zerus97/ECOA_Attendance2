@@ -1,0 +1,3 @@
+node_modules
+docker/postgres_data
+docker/pgadmin

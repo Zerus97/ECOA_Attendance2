@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Postgr3sç
+      - PGDATA=/data/postgres
+    secrets:
+      - postgres-passwd 
+    volumes:
+      - ./postgres_data:/data/postgres
+    ports:
+      - "5532:5432"
+    networks:
+      - postgres
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1      
+    restart: unless-stopped
+  
+  pgadmin:
+    links:
+      - postgres:postgres
+    image: dpage/pgadmin4:4.15
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    ports:
+      - "9080:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin
+      - PGADMIN_DEFAULT_PASSWORD=1234
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+secrets:
+   postgres-passwd:
+     file: ./secrets/postgres_password
